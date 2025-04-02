@@ -1,4 +1,4 @@
-package models;
+package edu.upc.dsa.models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,11 @@ import java.util.List;
 public class User {
     private String dni;
     private List<Order> orders;
+    private int id;
 
     public User(String dni) {
-        this.dni = dni;
+
+    this.dni = dni;
         this.orders = new ArrayList<>();
     }
     public void addOrder(Order order) {

@@ -1,6 +1,5 @@
-package models;
+package edu.upc.dsa.models;
 
-import models.Product;
 
 import java.util.List;
 import java.util.ArrayList;

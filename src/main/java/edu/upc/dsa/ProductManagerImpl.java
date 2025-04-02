@@ -1,15 +1,28 @@
 package edu.upc.dsa;
 
+
 import edu.upc.dsa.models.Order;
 import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.User;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class ProductManagerImpl implements ProductManager {
+
     private List<Product> productList;
+    private static final Logger logger = LogManager.getLogger(ProductManagerImpl.class);
     private Queue<Order> orderQueue;
     private HashMap<String, User> users;
+    private static ProductManagerImpl instance;
+
+    public static ProductManagerImpl getInstance() { //Se crea una instancia para poder tener una comun entre los diferentes clientes
+        if (instance == null) {
+            instance = new ProductManagerImpl();
+        }
+        return instance;
+    }
 
 
     public ProductManagerImpl() {
@@ -18,11 +31,15 @@ public class ProductManagerImpl implements ProductManager {
         users = new HashMap<>();
     }
 
+
+
     @Override
     public void addProduct(String id, String name, double price) {
+        logger.info("Adding product with id " + id + " and name " + name);
         productList.add(new Product(id, name, price));
 
     }
+
 
     @Override
     public List<Product> getProductsByPrice() {
@@ -85,4 +102,31 @@ public class ProductManagerImpl implements ProductManager {
         return users.get(dni);
 
     }
+
+        @Override
+        public void deleteProduct(String id) {
+            productList.removeIf(p -> p.getId().equals(id));
+        }
+
+    @Override
+    public List<Product> findAll() {
+        return productList;
+    }
+
+    @Override
+    public void addProduct(User user) {users.put(user.getDni(),user);
+
+    }
+
+
+    @Override
+    public Product updateProduct(Product product) {
+        for (Product p : this.productList) {
+            if (p.getId().equals(product.getId())) {
+                return product;
+            }
+        }
+        return null;
+    }
+
 }
