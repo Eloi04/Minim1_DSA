@@ -4,12 +4,12 @@ package edu.upc.dsa.models;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Order {
+public class Vuelos {
 
     private String userDNI;
     private List<String> items;
 
-    public Order(String dni) {
+    public Vuelos(String dni) {
         this.userDNI = dni;
         this.items = new ArrayList<>();
 
