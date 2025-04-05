@@ -9,7 +9,7 @@ public class Maleta {
         this.pasajero = pasajero;
     }
 
-    // Getters y setters
+
     public int getIdMaleta() {
         return idMaleta;
     }
@@ -22,7 +22,5 @@ public class Maleta {
         return pasajero;
     }
 
-    public void setPasajero(String pasajero) {
-        this.pasajero = pasajero;
-    }
+
 }

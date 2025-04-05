@@ -11,28 +11,29 @@ import org.junit.Test;
 import java.util.List;
 
 public class AvionManagerTest {
-    VuelosManager vm;   //Lo declaramos como una prueba
+    VuelosManager vm;
 
-    @Before  //Este metodo se ejecuta antes de cada prueba
+    @Before
     public void setUp() {
-        vm = new VuelosManagerImpl(); //Siempre garantiza que empieza en el mismo estado inicial
+        vm = new VuelosManagerImpl();
 
-        // Primero se añaden los aviones
+
         vm.addAvion("A1", "Boeing 747", "A");
         vm.addAvion("A2", "Airbus A320", "B");
         vm.addAvion("A3", "Cessna 172", "C");
         vm.addAvion("A4", "Boeing 737", "D");
 
-        // Luego se añaden los vuelos, ahora que los aviones ya están disponibles
+
         vm.addVuelo(101, "EETAC", "UOC", 12, 13, "A1");
         vm.addVuelo(102, "UAB", "ETSEB", 14, 15, "A2");
         vm.addVuelo(103, "ETSAB", "UPF", 16, 17, "A3");
     }
 
 
-    @After //Proporciona limpieza
+    @After
     public void tearDown() {
         this.vm = null;
+        this.vm = new VuelosManagerImpl();
     }
 
     @Test
@@ -43,7 +44,6 @@ public class AvionManagerTest {
 
     @Test
     public void testAddVuelo() {
-          // Ahora verificamos que el vuelo se ha añadido correctamente
             Vuelo vuelo = vm.getVuelo(103);
             Assert.assertNotNull(vuelo); // Verifica que el vuelo no es nulo
             Assert.assertEquals("ETSAB", vuelo.getOrigen()); // Verifica el origen
@@ -73,10 +73,9 @@ public class AvionManagerTest {
 
         Maleta maleta = new Maleta("Eloi");
         vm.facturarMaleta(101, maleta);
-        // Verificar que la maleta tiene un id asignado (no debe ser null)
+
         Assert.assertNotNull(maleta.getIdMaleta());
 
-        // Verificar que la maleta se ha añadido correctamente al vuelo
         List<Maleta> maletasFacturadas = vm.getMaletasFacturadas(101);
         Assert.assertEquals(1, maletasFacturadas.size());
         Assert.assertEquals("Eloi", maletasFacturadas.get(0).getPasajero());
@@ -98,7 +97,7 @@ public class AvionManagerTest {
         vm.facturarMaleta(101, maleta2);
         vm.facturarMaleta(101, maleta3);
 
-        // Obtener las maletas facturadas del vuelo 101
+
         List<Maleta> maletasFacturadas = vm.getMaletasFacturadas(101);
 
         // Verificar que las maletas sean entregadas en el orden correcto (última entra, primera sale)

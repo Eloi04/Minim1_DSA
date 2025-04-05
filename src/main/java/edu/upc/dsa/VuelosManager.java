@@ -17,7 +17,6 @@ public interface VuelosManager {
 
     List<Vuelo> getVuelos();
 
-
     void facturarMaleta(int idVuelo, Maleta maleta);
 
     List<Maleta> getMaletasFacturadas(int idVuelo);

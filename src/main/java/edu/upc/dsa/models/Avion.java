@@ -1,25 +1,25 @@
 package edu.upc.dsa.models;
 
 public class Avion {
-    private String idAvio;
+    private String idAvion;
     private String model;
     private String company;
 
     public Avion() {}
 
-    public Avion(String idAvio, String model, String company) {
-        this.idAvio = idAvio;
+    public Avion(String idAvion, String model, String company) {
+        this.idAvion = idAvion;
         this.model = model;
         this.company = company;
     }
 
 
-    public String getIdAvio() {
-        return idAvio;
+    public String getIdAvion() {
+        return idAvion;
     }
 
-    public void setIdAvio(String idAvio) {
-        this.idAvio = idAvio;
+    public void setIdAvion(String idAvion) {
+        this.idAvion = idAvion;
     }
 
     public String getModel() {
@@ -34,7 +34,5 @@ public class Avion {
         return company;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
-    }
+
 }
