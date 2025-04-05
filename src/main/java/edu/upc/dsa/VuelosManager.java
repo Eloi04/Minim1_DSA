@@ -1,31 +1,23 @@
 package edu.upc.dsa;
 import edu.upc.dsa.models.Maleta;
-import edu.upc.dsa.models.Avión;
+import edu.upc.dsa.models.Avion;
 import edu.upc.dsa.models.Vuelo;
 
 import java.util.List;
 
-public interface ProductManager {
+public interface VuelosManager {
 
-    public void addProduct(String id, String name, double price);
+    void addAvion(String id, String model, String company);
 
-    public List<Avión> getProductsByPrice();
+   public void addVuelo(int id, String origen, String destino, int salida, int llegada, String avionID);
 
-    public void addOrder(Maleta maleta);
+    Vuelo getVuelo(int id);
 
-    public int numOrders();
+    List<Vuelo> getVuelos();
 
-    public Maleta deliverOrder();
+    void addMaleta(int vueloId, Maleta maleta);
 
-    Avión getProduct(String c1);
+    List<Maleta> getMaletasDeVuelo(int vueloId);
+    public int numMaletas();
 
-    Vuelo getUser(String number);
-
-    List<Avión> findAll();
-
-    public void addProduct(Vuelo vuelo);
-
-    Avión updateProduct(Avión avión);
-
-    void deleteProduct(String id);
 }

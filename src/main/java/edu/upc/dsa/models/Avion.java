@@ -1,13 +1,13 @@
 package edu.upc.dsa.models;
 
-public class Avión {
+public class Avion {
     private String id;
     private String model;
     private String company;
 
-    public Avión() {}
+    public Avion() {}
 
-    public Avión(String id, String model, String company) {
+    public Avion(String id, String model, String company) {
         this.id = id;
         this.model = model;
         this.company=company;

@@ -1,7 +1,7 @@
 package edu.upc.dsa;
 
 import edu.upc.dsa.models.Maleta;
-import edu.upc.dsa.models.Avión;
+import edu.upc.dsa.models.Avion;
 import edu.upc.dsa.models.Vuelo;
 import org.junit.After;
 import org.junit.Assert;
@@ -10,67 +10,52 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class AviónManagerTest {
-    VuelosManager pm;   //Lo declaramos como una prueba
+public class AvionManagerTest {
+    VuelosManager vm;   //Lo declaramos como una prueba
 
     @Before  //Este metodo se ejecuta antes de cada peueba
     public void setUp() {
-        pm = new VuelosManagerImpl(); //Siempre garantiza que empieza en el mismo estado inicial"
-        pm.addVuelo("C1", "Coca-cola zero", 2);
-        pm.addVuelo("C2", "Coca-cola", 2.5);
-        pm.addVuelo("B1", "Lomo queso", 3);
-        pm.addVuelo("C3", "bacon queso", 3.5);
+        vm = new VuelosManagerImpl(); //Siempre garantiza que empieza en el mismo estado inicial"
+        vm.addVuelo(101, "EETAC", "UOC", 12, 13, "A1");
+        vm.addVuelo(102, "UAB", "ETSEB", 14, 15, "A2");
+        vm.addVuelo(103, "ETSAB", "UPF", 1600, 1700, "A3");
+
+
+        vm.addAvion("A1", "Boeing 747", "A");
+        vm.addAvion("A2", "Airbus A320", "B");
+        vm.addAvion("A3", "Cessna 172", "C");
+        vm.addAvion("A4", "Boeing 737", "D");
     }
 
     @After //Proporciona limpieza
     public void tearDown() {
-        this.pm = null;
+        this.vm = null;
     }
 
     @Test
-    public void testProductByPrice() {
-        List<Avión> avións = pm.getProductsByPrice();
-        Assert.assertEquals(3.5, avións.get(0).getCompany(), 0.01);
-        Assert.assertEquals(3, avións.get(1).getCompany(), 0.01);
-        Assert.assertEquals(2.5, avións.get(2).getCompany(), 0.01);
-        Assert.assertEquals(2, avións.get(3).getCompany(), 0.01);
+        public void testGetVuelos() {
+        List<Vuelo> vuelos = vm.getVuelos();
+        Assert.assertEquals(3, vuelos.size()); //
     }
 
     @Test
-    public void testAddOrder() {
-        Assert.assertEquals(0, pm.numOrders());
-        Maleta o = new Maleta("381112838");
-        o.addLP(2, "C1");
-        o.addLP(1, "B2");
-        o.addLP(1, "C2");
-        pm.addMaleta(o);
+    public void testAddMaleta() {
+        Assert.assertEquals(0, vm.numMaletas()); // No hay maletas al inicio
+        Maleta m = new Maleta("381112838","101"); // Crear una maleta
+        m.addLV(1, "A1"); // Asignar productos al vuelo
+        m.addLV(2, "A3");
+        vm.addMaleta(101,m); // Añadir maleta al vuelo 101
 
-        Assert.assertEquals(1, pm.numOrders());// ahora ya hay una orden
     }
 
+    //Aqui ja ho fet a la desesperada perque no m'ha donat temps, pero ho fare a casa a tope!
     @Test
-    public void testDeliverOrder() {
-        testAddOrder();
-        Assert.assertEquals(1, pm.numOrders());
-        Maleta o = pm.deliverOrder();
-        Assert.assertEquals(0, pm.numOrders());
+    public void testVuelosConAvion() {
+        Vuelo vuelo = vm.getVuelo(101); // Obtenemos el vuelo con id 101
+        Assert.assertNotNull(vuelo); // El vuelo debería existir
 
-        Assert.assertEquals("381112838", o.getUser());
+        Assert.assertEquals("A1", vuelo.getAvionID()); // Comprobamos que el avión asignado al vuelo es correcto
     }
 
-    @Test
-    public void testSales() {
-        testDeliverOrder(); //Para aasegurarse de que ha habido aalguna compra
-        Avión p = pm.getProduct("C1");
-        Assert.assertEquals(2, p.sales()); // comprueba que se han vendido dos unidades
 
-    }
-
-    @Test
-    public void testOrdersByUser() {
-        testSales();
-        Vuelo u = pm.getVuelo("381112838");
-        List<Maleta> l = u.getMaletas();
-        Assert.assertEquals(1, l.size());
-    }
 }
