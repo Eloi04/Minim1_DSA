@@ -23,6 +23,20 @@ public class VuelosService {
 
     public VuelosService() {
         this.vm = VuelosManagerImpl.getInstance();
+        if (this.vm.getVuelos().size() == 0) {
+            vm.addAvion("A1", "Boeing 747", "A");
+            vm.addAvion("A2", "Airbus A320", "B");
+            vm.addAvion("A3", "Cessna 172", "C");
+            vm.addAvion("A4", "Boeing 737", "D");
+
+
+            vm.addVuelo(101, "EETAC", "UOC", 12, 13, "A1");
+            vm.addVuelo(102, "UAB", "ETSEB", 14, 15, "A2");
+            vm.addVuelo(103, "ETSAB", "UPF", 16, 17, "A3");
+            Maleta m = new Maleta("Eloi");
+            vm.facturarMaleta(101, m);
+        }
+
     }
 
 
