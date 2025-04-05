@@ -1,50 +1,28 @@
 package edu.upc.dsa.models;
 
-
-import java.util.List;
-import java.util.ArrayList;
-
 public class Maleta {
 
-    private String id;
-    private String vueloId;
-    private List<String> items;
+    private int idMaleta;  // Cambié el tipo a int para el ID único
+    private String pasajero;  // Asumimos que el pasajero es un string (podría ser el nombre o el ID del usuario)
 
-
-    public Maleta(String id, String vueloId) {
-        this.id = id;
-        this.vueloId = vueloId;
-        this.items = new ArrayList<>();
-
-
+    public Maleta(String pasajero) {
+        this.pasajero = pasajero;
     }
 
-    public String getId() {
-        return id;
+    // Getters y setters
+    public int getIdMaleta() {
+        return idMaleta;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setIdMaleta(int idMaleta) {
+        this.idMaleta = idMaleta;
     }
 
-    public String getVueloId() {
-        return vueloId;
+    public String getPasajero() {
+        return pasajero;
     }
 
-    public void setVueloId(String vueloId) {
-        this.vueloId = vueloId;
-    }
-
-
-
-
-    public void addLV(int quantity, String productId) {
-        items.add(quantity + "x " );
-
+    public void setPasajero(String pasajero) {
+        this.pasajero = pasajero;
     }
 }
-
-
-
-
-

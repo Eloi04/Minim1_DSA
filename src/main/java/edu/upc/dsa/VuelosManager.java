@@ -9,15 +9,16 @@ public interface VuelosManager {
 
     void addAvion(String id, String model, String company);
 
-   public void addVuelo(int id, String origen, String destino, int salida, int llegada, String avionID);
+    void addVuelo(int id, String origen, String destino, int salida, int llegada, String avionID);
 
-    Vuelo getVuelo(int id);
+     Vuelo getVuelo(int id);
+
+    Avion getAvion(String id);
 
     List<Vuelo> getVuelos();
 
-    void addMaleta(int vueloId, Maleta maleta);
 
-    List<Maleta> getMaletasDeVuelo(int vueloId);
-    public int numMaletas();
+    void facturarMaleta(int idVuelo, Maleta maleta);
 
+    List<Maleta> getMaletasFacturadas(int idVuelo);
 }

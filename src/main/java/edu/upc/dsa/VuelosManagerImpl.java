@@ -10,13 +10,12 @@ import java.util.*;
 
 public class VuelosManagerImpl implements VuelosManager {
 
-    private List<Avion> avionList;
-    private List<Vuelo> vueloList;
-    private Queue<Maleta> maletasQueue;
-
     private static final Logger logger = LogManager.getLogger(VuelosManagerImpl.class);
     private static VuelosManagerImpl instance;
 
+    private Map<String, Avion> aviones;
+    private Map<Integer, Vuelo> vuelos;
+    private int idMaletaCounter;
 
     public static VuelosManagerImpl getInstance() {
         if (instance == null) {
@@ -25,88 +24,74 @@ public class VuelosManagerImpl implements VuelosManager {
         return instance;
     }
 
-
-    // Constructor
     public VuelosManagerImpl() {
-        avionList = new ArrayList<>();
-        vueloList = new ArrayList<>();
-        this.maletasQueue = new LinkedList<>();
+        this.aviones = new HashMap<>();
+        this.vuelos = new HashMap<>();
+        this.idMaletaCounter = 1;
     }
 
     @Override
     public void addAvion(String id, String model, String company) {
-        // Comprobar si el avión ya existe
-        for (Avion avion : avionList) {
-            if (avion.getId().equals(id)) {
-                // Si ya existe, actualizar sus datos
-                avion.setModel(model);
-                avion.setCompany(company);
-                logger.info("Avion con ID " + id + " actualizado.");
-                return;
-            }
-        }
-
-        Avion avion = new Avion(id, model, company);
-        avionList.add(avion);
-        logger.info("Avion con ID " + id + " agregado.");
+        logger.info("Añadiendo/modificando avión: id=" + id);
+        aviones.put(id, new Avion(id, model, company));
     }
 
     @Override
     public void addVuelo(int id, String origen, String destino, int salida, int llegada, String avionID) {
-       logger.info("Vuelo con ID " + id + " agregado.");
-       vueloList.add(new Vuelo(id, origen, destino, salida, llegada, avionID));
+        logger.info("Añadiendo vuelo id=" + id);
+        Avion avion = aviones.get(avionID);
+
+        if (avion == null) {
+            logger.warn("No se encontró el avión con id=" + avionID);
+            return;
+        }
+
+        vuelos.put(id, new Vuelo(id, origen, destino, salida, llegada, avion));
     }
 
     @Override
     public Vuelo getVuelo(int id) {
-        // Buscar el vuelo por ID
-        for (Vuelo vuelo : vueloList) {
-            if (vuelo.getId() == id) {
-                return vuelo;
-            }
-        }
-        return null;
+        logger.info("Buscando vuelo con id=" + id);
+        return vuelos.get(id);
     }
+
+    @Override
+    public Avion getAvion(String id) {
+        logger.info("Buscando avion con id=" + id);
+        return aviones.get(id);    }
 
     @Override
     public List<Vuelo> getVuelos() {
-        return vueloList;
+        logger.info("Obteniendo todos los vuelos");
+        return new ArrayList<>(vuelos.values());
     }
 
-
     @Override
-    public void addMaleta(int vueloId, Maleta maleta) {
-        Vuelo vuelo = this.vueloList.get(vueloId);  // Buscar el vuelo por ID
+    public void facturarMaleta(int idVuelo, Maleta maleta) {
+        logger.info("Facturando maleta en vuelo id=" + idVuelo);
+        Vuelo vuelo = vuelos.get(idVuelo);
 
         if (vuelo == null) {
-            throw new IllegalArgumentException("El vuelo con ID " + vueloId + " no existe.");
+            logger.warn("Vuelo no encontrado");
+            return;
         }
 
-        vuelo.addMaleta(maleta);  // Agregar la maleta al vuelo
-
-        maletasQueue.add(maleta);  // Agregar la maleta a la cola global
+        maleta.setIdMaleta(idMaletaCounter++);
+        vuelo.addMaleta(maleta);
     }
 
     @Override
-    public int numMaletas() {
-        return maletasQueue.size();  // Retorna el tamaño de la cola de maletas
-    }
+    public List<Maleta> getMaletasFacturadas(int idVuelo) {
+        logger.info("Obteniendo maletas del vuelo id=" + idVuelo);
+        Vuelo vuelo = vuelos.get(idVuelo);
 
-
-
-
-    @Override
-    public List<Maleta> getMaletasDeVuelo(int vueloId) {
-        // Buscar el vuelo por ID
-        Vuelo vuelo = getVuelo(vueloId);
         if (vuelo == null) {
-            throw new IllegalArgumentException("El vuelo con ID " + vueloId + " no existe.");
+            logger.warn("Vuelo no encontrado");
+            return null;
         }
 
-        // Retornar las maletas facturadas en ese vuelo
-        return vuelo.getMaletas();
+        List<Maleta> lista = new ArrayList<>(vuelo.getMaletas());
+        Collections.reverse(lista); // Última entra, primera sale
+        return lista;
     }
-
-
-
 }

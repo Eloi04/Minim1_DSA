@@ -1,46 +1,60 @@
 package edu.upc.dsa.models;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class Vuelo {
 
     private List<Maleta> maletas;
 
-    private int id; //Identificador de la maleta
+    private int idVuelo;
     private String origen;
     private String destino;
     private int salida;
     private int llegada;
-    private String avionID;
+    private Avion avion;
 
-    public Vuelo(int id, String origen, String destino, int salida, int llegada, String avionID) {
 
-        this.id = id;
+    public Vuelo(int id, String origen, String destino, int salida, int llegada, Avion avion) {
+
+        this.idVuelo = id;
         this.origen = origen;
         this.destino = destino;
         this.salida = salida;
         this.llegada = llegada;
-        this.avionID = avionID;
+        this.avion = avion;
 
-        this.maletas = new ArrayList<>();
+        this.maletas = new LinkedList<>();
     }
-//Añadinos maleta al vuelo
+
+    public void facturarMaleta(Maleta maleta) {
+        // Asignar un ID único a la maleta
+        maleta.setIdMaleta(this.maletas.size() + 1);  // Asignamos un ID secuencial basado en el tamaño de la lista
+        maletas.add(0, maleta);  // Añadir la maleta al principio (desde el fondo de la bodega)
+    }
+
     public void addMaleta(Maleta maleta) {
-        this.maletas.add(maleta);
+        maletas.add(maleta);
     }
-//Obtener la lista de maletas facturadas en el vuelo
-    public List<Maleta> getMaletas() {
+
+    public List<Maleta> maletas() {
         return maletas;
 
     }
 
-    public int getId() {
-        return id;
+
+    public List<Maleta> getMaletas() {
+        return maletas;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getIdVuelo() {
+        return idVuelo;
+    }
+
+    public void setIdVuelo(int idVuelo) {
+        this.idVuelo = idVuelo;
     }
 
     public String getOrigen() {
@@ -71,16 +85,22 @@ public class Vuelo {
         return llegada;
     }
 
+
     public void setLlegada(int llegada) {
         this.llegada = llegada;
     }
 
-    public void setAvionID(String avionID) {
-        this.avionID = avionID;
+    public Avion getAvion() {
+        return avion;
     }
 
-    public String getAvionID() {
-        return avionID;
+    public void setAvion(Avion avion) {
+        this.avion = avion;
     }
 
+    public List<Maleta> getMaletasFacturadas() {return maletas;}
+
+    public void setMaletasFacturadas(List<Maleta> maletas) {
+        this.maletas = maletas;
+    }
 }
