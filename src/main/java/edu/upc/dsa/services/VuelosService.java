@@ -33,8 +33,14 @@ public class VuelosService {
             vm.addVuelo(101, "EETAC", "UOC", 12, 13, "A1");
             vm.addVuelo(102, "UAB", "ETSEB", 14, 15, "A2");
             vm.addVuelo(103, "ETSAB", "UPF", 16, 17, "A3");
-            Maleta m = new Maleta("Eloi");
-            vm.facturarMaleta(101, m);
+
+            Maleta m1 = new Maleta("Eloi");
+            Maleta m2 = new Maleta("Toni");
+            Maleta m3 = new Maleta("Eloi");
+
+            vm.facturarMaleta(101, m1);
+            vm.facturarMaleta(102, m2);
+            vm.facturarMaleta(103, m3);
         }
 
     }

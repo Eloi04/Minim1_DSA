@@ -22,6 +22,10 @@ public class Avion {
         this.idAvion = idAvion;
     }
 
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     public String getModel() {
         return model;
     }
@@ -33,6 +37,8 @@ public class Avion {
     public String getCompany() {
         return company;
     }
+
+
 
 
 }

@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class Vuelo {
 
+
+
     private List<Maleta> maletas;
 
     private int idVuelo;
@@ -28,6 +30,11 @@ public class Vuelo {
 
         this.maletas = new LinkedList<>();
     }
+    public Vuelo() {
+        this.maletas = new LinkedList<>();
+    }
+
+
 
     public void facturarMaleta(Maleta maleta) {
         // Asignar un ID único a la maleta
@@ -40,7 +47,33 @@ public class Vuelo {
     }
 
 
+    public void setMaletas(List<Maleta> maletas) {
+        this.maletas = maletas;
+    }
 
+    public void setIdVuelo(int idVuelo) {
+        this.idVuelo = idVuelo;
+    }
+
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
+
+    public void setSalida(int salida) {
+        this.salida = salida;
+    }
+
+    public void setLlegada(int llegada) {
+        this.llegada = llegada;
+    }
+
+    public void setAvion(Avion avion) {
+        this.avion = avion;
+    }
 
     public List<Maleta> getMaletas() {
         return maletas;

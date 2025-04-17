@@ -9,6 +9,15 @@ public class Maleta {
         this.pasajero = pasajero;
     }
 
+    public void setPasajero(String pasajero) {
+        this.pasajero = pasajero;
+    }
+
+    public Maleta(){
+
+    }
+
+
 
     public int getIdMaleta() {
         return idMaleta;
