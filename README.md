@@ -1,1 +1,1 @@
-Quan vaig acabar la classe, m'anvaen dos tests, en l'estat actual hem va tot. Li he posat molta dedicació
+Quan vaig acabar la classe, m'anvaen dos tests, en l'estat actual hem va tot. Li he posat molta dedicació. Per practicar duran aqiesta setmana santa, he vist que hi havia uns errors de setters y getter que havia de corretgir i ho he fet per millorar y intentar apendre més sobre la api cara el projecte
